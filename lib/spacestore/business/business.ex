@@ -108,4 +108,100 @@ defmodule Spacestore.Business do
   def change_store(%Store{} = store) do
     Store.changeset(store, %{})
   end
+
+  alias Spacestore.Business.UserStore
+
+  @doc """
+  Returns the list of users_stores.
+
+  ## Examples
+
+      iex> list_users_stores()
+      [%UserStore{}, ...]
+
+  """
+  def list_users_stores do
+    Repo.all(UserStore)
+  end
+
+  @doc """
+  Gets a single user_store.
+
+  Raises `Ecto.NoResultsError` if the User store does not exist.
+
+  ## Examples
+
+      iex> get_user_store!(123)
+      %UserStore{}
+
+      iex> get_user_store!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_user_store!(id), do: Repo.get!(UserStore, id)
+
+  @doc """
+  Creates a user_store.
+
+  ## Examples
+
+      iex> create_user_store(%{field: value})
+      {:ok, %UserStore{}}
+
+      iex> create_user_store(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_user_store(attrs \\ %{}) do
+    %UserStore{}
+    |> UserStore.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a user_store.
+
+  ## Examples
+
+      iex> update_user_store(user_store, %{field: new_value})
+      {:ok, %UserStore{}}
+
+      iex> update_user_store(user_store, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_user_store(%UserStore{} = user_store, attrs) do
+    user_store
+    |> UserStore.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a UserStore.
+
+  ## Examples
+
+      iex> delete_user_store(user_store)
+      {:ok, %UserStore{}}
+
+      iex> delete_user_store(user_store)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_user_store(%UserStore{} = user_store) do
+    Repo.delete(user_store)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user_store changes.
+
+  ## Examples
+
+      iex> change_user_store(user_store)
+      %Ecto.Changeset{source: %UserStore{}}
+
+  """
+  def change_user_store(%UserStore{} = user_store) do
+    UserStore.changeset(user_store, %{})
+  end
 end

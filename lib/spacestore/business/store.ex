@@ -9,6 +9,7 @@ defmodule Spacestore.Business.Store do
     field :email, :string
     field :name, :string
     belongs_to :owner, User
+    many_to_many :sellers, User, join_through: UserStore
 
     timestamps(usec: false)
   end

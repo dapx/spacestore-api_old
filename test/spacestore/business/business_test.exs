@@ -68,4 +68,54 @@ defmodule Spacestore.BusinessTest do
       assert %Ecto.Changeset{} = Business.change_store(store)
     end
   end
+
+  describe "users_stores" do
+    alias Spacestore.Business.UserStore
+
+    @valid_attrs %{}
+    @update_attrs %{}
+    @invalid_attrs %{}
+
+    def user_store_fixture(attrs \\ %{}) do
+      store = store_fixture()
+      user = Spacestore.AccountTest.user_fixture()
+      {:ok, user_store} =
+        attrs
+        |> Enum.into(%{ store_id: store.id, user_id: user.id })
+        |> Business.create_user_store()
+
+      user_store
+    end
+
+    test "list_users_stores/0 returns all users_stores" do
+      user_store = user_store_fixture()
+      assert Business.list_users_stores() == [user_store]
+    end
+
+    test "get_user_store!/1 returns the user_store with given id" do
+      user_store = user_store_fixture()
+      assert Business.get_user_store!(user_store.id) == user_store
+    end
+
+    test "create_user_store/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Business.create_user_store(@invalid_attrs)
+    end
+
+    test "update_user_store/2 with valid data updates the user_store" do
+      user_store = user_store_fixture()
+      assert {:ok, user_store} = Business.update_user_store(user_store, @update_attrs)
+      assert %UserStore{} = user_store
+    end
+
+    test "delete_user_store/1 deletes the user_store" do
+      user_store = user_store_fixture()
+      assert {:ok, %UserStore{}} = Business.delete_user_store(user_store)
+      assert_raise Ecto.NoResultsError, fn -> Business.get_user_store!(user_store.id) end
+    end
+
+    test "change_user_store/1 returns a user_store changeset" do
+      user_store = user_store_fixture()
+      assert %Ecto.Changeset{} = Business.change_user_store(user_store)
+    end
+  end
 end

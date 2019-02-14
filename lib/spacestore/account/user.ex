@@ -8,7 +8,8 @@ defmodule Spacestore.Account.User do
     field :is_verified, :boolean, default: false
     field :name, :string
     field :password, :string
-    has_many :stores, Store
+    has_many :own_stores, Store
+    many_to_many :stores, Store, join_through: UserStore
 
     timestamps(usec: false)
   end
