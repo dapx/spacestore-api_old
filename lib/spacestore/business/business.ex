@@ -11,8 +11,8 @@ defmodule Spacestore.Business do
   @doc """
   Returns the list of stores with owner preloaded
   """
-  def list_stores_with_owner() do
-    Repo.all(from s in Store, preload: [:owner])
+  def list_stores_with_preload(preload) do
+    Repo.all(from s in Store, preload: ^preload)
   end
 
   @doc """

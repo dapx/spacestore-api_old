@@ -1,6 +1,7 @@
 defmodule Spacestore.Business.StoreAddress do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Spacestore.Business.Store
 
 
   schema "store_addresses" do
@@ -13,7 +14,7 @@ defmodule Spacestore.Business.StoreAddress do
     field :complement, :string
     field :latitude, :float
     field :longitude, :float
-    field :store_id, :id
+    belongs_to :store, Store
 
     timestamps(usec: false)
   end

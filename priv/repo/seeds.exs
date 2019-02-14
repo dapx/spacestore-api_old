@@ -52,5 +52,6 @@ seller = Spacestore.Repo.get_by(User, email: "seller@gmail.com")
   number: 575,
   complement: "Apto 101",
   latitude: -26.4898151,
-  longitude: -49.0770651
+  longitude: -49.0770651,
+  store_id: store.id
 } |> Spacestore.Repo.insert!

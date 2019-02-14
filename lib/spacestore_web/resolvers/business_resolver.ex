@@ -12,7 +12,7 @@ defmodule SpacestoreWeb.BusinessResolver do
   end
 
   def all_stores(_root, _args, _info) do
-    stores = Business.list_stores_with_owner()
+    stores = Business.list_stores_with_preload([:owner, :address])
     {:ok, stores}
   end
 end
