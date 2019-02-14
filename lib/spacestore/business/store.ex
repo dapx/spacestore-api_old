@@ -17,7 +17,7 @@ defmodule Spacestore.Business.Store do
   @doc false
   def changeset(store, attrs) do
     store
-    |> cast(attrs, [:name, :description, :email, :document, :owner])
+    |> cast(attrs, [:name, :description, :email, :document])
     |> validate_required([:name, :description, :email, :document])
   end
 end
