@@ -3,7 +3,6 @@ defmodule Spacestore.Account.User do
   import Ecto.Changeset
   alias Spacestore.Business.Store
 
-
   schema "users" do
     field :email, :string
     field :is_verified, :boolean, default: false

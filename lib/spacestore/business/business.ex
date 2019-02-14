@@ -9,6 +9,13 @@ defmodule Spacestore.Business do
   alias Spacestore.Business.Store
 
   @doc """
+  Returns the list of stores with owner preloaded
+  """
+  def list_stores_with_owner() do
+    Repo.all(from s in Store, preload: [:owner])
+  end
+
+  @doc """
   Returns the list of stores.
 
   ## Examples
@@ -18,7 +25,7 @@ defmodule Spacestore.Business do
 
   """
   def list_stores do
-    Repo.all(from s in Store, preload: [:owner])
+    Repo.all(Store)
   end
 
   @doc """

@@ -3,7 +3,6 @@ defmodule Spacestore.Business.Store do
   import Ecto.Changeset
   alias Spacestore.Account.User
 
-
   schema "stores" do
     field :description, :string
     field :document, :string
@@ -11,7 +10,7 @@ defmodule Spacestore.Business.Store do
     field :name, :string
     belongs_to :owner, User
 
-    timestamps()
+    timestamps(usec: false)
   end
 
   @doc false
