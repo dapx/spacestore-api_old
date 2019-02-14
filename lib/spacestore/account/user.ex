@@ -1,6 +1,7 @@
 defmodule Spacestore.Account.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Spacestore.Business.Store
 
 
   schema "users" do
@@ -8,6 +9,7 @@ defmodule Spacestore.Account.User do
     field :is_verified, :boolean, default: false
     field :name, :string
     field :password, :string
+    has_many :stores, Store
 
     timestamps(usec: false)
   end
