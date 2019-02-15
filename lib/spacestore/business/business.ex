@@ -42,8 +42,8 @@ defmodule Spacestore.Business do
         }, [])
 
   """
-  def list_stores_by_distance(coordinates, preload, distance_km \\ 10) do
-    query_stores_by_distance(coordinates, distance_km)
+  def list_stores_by_distance(coordinates, preload) do
+    query_stores_by_distance(coordinates)
     |> load_stores
     |> Spacestore.Repo.preload(preload)
   end
@@ -57,7 +57,9 @@ defmodule Spacestore.Business do
     )
   end
 
-  defp query_stores_by_distance(%{ latitude: latitude, longitude: longitude }, distance_km) do
+  defp query_stores_by_distance(
+    %{ latitude: latitude, longitude: longitude, distance: distance_km }
+  ) do
     Ecto.Adapters.SQL.query!(
       Spacestore.Repo,
       @query_by_distance,

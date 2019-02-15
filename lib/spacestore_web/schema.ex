@@ -32,6 +32,9 @@ defmodule SpacestoreWeb.Schema do
 
   query do
     field :all_stores, non_null(list_of(non_null(:store))) do
+      arg :latitude, non_null(:float)
+      arg :longitude, non_null(:float)
+      arg :distance, :float, default_value: 10
       resolve &BusinessResolver.all_stores/3
     end
   end

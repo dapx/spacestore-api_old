@@ -11,8 +11,8 @@ defmodule SpacestoreWeb.BusinessResolver do
     end
   end
 
-  def all_stores(_root, _args, _info) do
-    stores = Business.list_stores_with_preload([:owner, :address])
+  def all_stores(_root, args, _info) do
+    stores = Business.list_stores_by_distance(args, [:owner, :address])
     {:ok, stores}
   end
 end
