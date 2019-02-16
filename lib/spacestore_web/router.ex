@@ -11,5 +11,10 @@ defmodule SpacestoreWeb.Router do
       schema: SpacestoreWeb.Schema,
       interface: :simple,
       context: %{pubsub: SpacestoreWeb.Endpoint}
+
+    forward "/graphql", Absinthe.Plug,
+      schema: SpacestoreWeb.Schema,
+      interface: :simple,
+      context: %{pubsub: SpacestoreWeb.Endpoint}
   end
 end
