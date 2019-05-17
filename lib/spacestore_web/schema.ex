@@ -1,36 +1,12 @@
 defmodule SpacestoreWeb.Schema do
   use Absinthe.Schema
 
+  import_types __MODULE__.UserTypes
+  import_types __MODULE__.StoreTypes
+  import_types __MODULE__.SessionTypes
+
   alias SpacestoreWeb.BusinessResolver
-
-  object :address do
-    field :id, non_null(:id)
-    field :cep, non_null(:integer)
-    field :uf, non_null(:string)
-    field :city, non_null(:string)
-    field :neighborhood, non_null(:string)
-    field :street, non_null(:string)
-    field :number, non_null(:integer)
-    field :complement, non_null(:string)
-    field :latitude, non_null(:float)
-    field :longitude, non_null(:float)
-  end
-
-  object :owner do
-    field :id, non_null(:id)
-    field :name, non_null(:string)
-    field :email, non_null(:string)
-  end
-
-  object :store do
-    field :id, non_null(:id)
-    field :name, non_null(:string)
-    field :logo, non_null(:string)
-    field :description, non_null(:string)
-    field :email, non_null(:string)
-    field :owner, non_null(:owner)
-    field :address, non_null(:address)
-  end
+  alias SpacestoreWeb.AccountsResolver
 
   query do
     field :stores, non_null(list_of(non_null(:store))) do
@@ -42,6 +18,27 @@ defmodule SpacestoreWeb.Schema do
 
     field :all_stores, non_null(list_of(non_null(:store))) do
       resolve &BusinessResolver.all_stores/3
+    end
+  end
+
+  mutation do
+    field :create_user, type: :user do
+      arg :name, non_null(:string)
+      arg :email, non_null(:string)
+      arg :password, non_null(:string)
+
+      resolve &AccountsResolver.create_user/2
+    end
+
+    field :login, type: :session do
+      arg :email, non_null(:string)
+      arg :password, non_null(:string)
+    
+      resolve &AccountsResolver.login/2
+    end
+
+    field :test, type: :user do
+      resolve &AccountsResolver.test/2
     end
   end
 end

@@ -5,8 +5,12 @@ defmodule SpacestoreWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :graphql do
+    plug :api
+  end
+
   scope "/" do
-    pipe_through :api
+    pipe_through :graphql
     forward "/graphiql", Absinthe.Plug.GraphiQL,
       schema: SpacestoreWeb.Schema,
       interface: :simple,
@@ -14,7 +18,6 @@ defmodule SpacestoreWeb.Router do
 
     forward "/graphql", Absinthe.Plug,
       schema: SpacestoreWeb.Schema,
-      interface: :simple,
       context: %{pubsub: SpacestoreWeb.Endpoint}
   end
 end

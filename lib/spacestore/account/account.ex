@@ -37,6 +37,17 @@ defmodule Spacestore.Account do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  def get_user_by(params), do: Repo.get_by(User, Map.to_list(params))
+
+  def validate_user_login(%{ email: email, password: password}) do
+    user = Repo.get_by(User, email: email)
+    cond do
+      is_nil(user) -> {:error, "User not found!"}
+      !Argon2.verify_pass(password, user.password_hash) -> "Password invalid!"
+      user -> {:ok, user}
+    end
+  end
+
   @doc """
   Creates a user.
 
@@ -70,6 +81,18 @@ defmodule Spacestore.Account do
   def update_user(%User{} = user, attrs) do
     user
     |> User.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def store_token(%User{} = user, token) do
+    user
+    |> User.token_changeset(%{token: token})
+    |> Repo.update()
+  end
+
+  def revoke_token(%User{} = user, token) do
+    user
+    |> User.token_changeset(%{token: nil})
     |> Repo.update()
   end
 
