@@ -13,7 +13,9 @@ config :spacestore, SpacestoreWeb.Endpoint,
 
 # Configure your database
 config :spacestore, Spacestore.Repo,
-  migration_timestamps: [type: :naive_datetime_usec],
-  adapter: Ecto.Adapters.Mysql,
-  url: System.get_env("DATABASE_URL"),
+  adapter: Ecto.Adapters.MySQL,
+  username: System.get_env("DB_USER"),
+  password: System.get_env("DB_PASS"),
+  database: System.get_env("DB_NAME"),
+  hostname: System.get_env("DB_HOSTNAME"),
   pool_size: 10
