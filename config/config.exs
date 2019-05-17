@@ -12,7 +12,7 @@ config :spacestore,
 # Configures the endpoint
 config :spacestore, SpacestoreWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "4/rX8AG8pSIVuUtnMdZv92OKf+B5mGrkb6Rv28/qrqs0fMwQN2Wy/sAVBBHgZ3NS",
+  secret_key_base: System.get_env("SECRET_KEY"),
   render_errors: [view: SpacestoreWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: Spacestore.PubSub,
            adapter: Phoenix.PubSub.PG2]
@@ -21,6 +21,8 @@ config :spacestore, SpacestoreWeb.Endpoint,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:user_id]
+
+config :phoenix, :json_library, Jason
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

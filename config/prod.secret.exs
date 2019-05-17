@@ -13,7 +13,7 @@ config :spacestore, SpacestoreWeb.Endpoint,
 
 # Configure your database
 config :spacestore, Spacestore.Repo,
-  migration_timestamps: [type: :naive_datetime_usec]
+  migration_timestamps: [type: :naive_datetime_usec],
   adapter: Ecto.Adapters.Mysql,
   url: System.get_env("DATABASE_URL"),
-  pool_size: 15
+  pool_size: 10
