@@ -18,4 +18,4 @@ config :spacestore, Spacestore.Repo,
   password: System.get_env("DB_PASS"),
   database: System.get_env("DB_NAME"),
   hostname: System.get_env("DB_HOSTNAME"),
-  pool_size: 10
+  pool_size: 9
